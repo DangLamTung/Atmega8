@@ -1,0 +1,551 @@
+Archive member included because of file (symbol)
+
+d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                              d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o (exit)
+d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                              lcd.o (__do_copy_data)
+d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                              i2c.o (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+I2C_ErrorCode       0x1               i2c.o
+
+Discarded input sections
+
+ .data          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .bss           0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ .text          0x00000000        0x0 font.o
+ .data          0x00000000        0x0 font.o
+ .bss           0x00000000        0x0 font.o
+ .text          0x00000000        0x0 i2c.o
+ .data          0x00000000        0x0 i2c.o
+ .bss           0x00000000        0x0 i2c.o
+ .text.i2c_readAck
+                0x00000000        0x0 i2c.o
+ .text.i2c_readNAck
+                0x00000000        0x0 i2c.o
+ .text          0x00000000        0x0 lcd.o
+ .data          0x00000000        0x0 lcd.o
+ .bss           0x00000000        0x0 lcd.o
+ .text.lcd_drawRect
+                0x00000000        0x0 lcd.o
+ .text.lcd_drawBitmap
+                0x00000000        0x0 lcd.o
+ .text.lcd_set_contrast
+                0x00000000        0x0 lcd.o
+ .text.lcd_sleep
+                0x00000000        0x0 lcd.o
+ .text.lcd_invert
+                0x00000000        0x0 lcd.o
+ .text.lcd_puts_p
+                0x00000000        0x0 lcd.o
+ .text          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
+ .text._Z10run_columnv
+                0x00000000        0x0 main.o
+ .bss.game_mode
+                0x00000000        0x0 main.o
+ .bss.sec       0x00000000        0x0 main.o
+ .bss.min       0x00000000        0x0 main.o
+ .bss.hour      0x00000000        0x0 main.o
+ .bss.day       0x00000000        0x0 main.o
+ .bss.date      0x00000000        0x0 main.o
+ .bss.month     0x00000000        0x0 main.o
+ .bss.year      0x00000000        0x0 main.o
+ .bss.buffer    0x00000000        0x0 main.o
+ .text          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+LOAD font.o
+LOAD i2c.o
+LOAD lcd.o
+LOAD main.o
+START GROUP
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+END GROUP
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libm.a
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5\libc.a
+LOAD d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xe66
+ *(.vectors)
+ .vectors       0x00000000       0x68 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+ .progmem.data  0x00000068      0x284 font.o
+                0x00000068                ssd1306oled_font
+                0x000002d8                special_char
+ .progmem.data  0x000002ec       0x1b lcd.o
+                0x000002ec                init_sequence
+                0x00000308                . = ALIGN (0x2)
+ *fill*         0x00000307        0x1 00
+                0x00000308                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000308        0x0 linker stubs
+ *(.trampolines*)
+                0x00000308                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000308                __ctors_start = .
+ *(.ctors)
+                0x00000308                __ctors_end = .
+                0x00000308                __dtors_start = .
+ *(.dtors)
+                0x00000308                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000308        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000308                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000308        0xc d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000314       0x16 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+                0x00000314                __do_copy_data
+ .init4         0x0000032a       0x10 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x0000032a                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000033a        0x8 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+ *(.init9)
+ *(.text)
+ .text          0x00000342        0x4 d:/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm328p.o
+                0x00000342                __vector_22
+                0x00000342                __vector_24
+                0x00000342                __vector_12
+                0x00000342                __bad_interrupt
+                0x00000342                __vector_6
+                0x00000342                __vector_3
+                0x00000342                __vector_23
+                0x00000342                __vector_25
+                0x00000342                __vector_11
+                0x00000342                __vector_13
+                0x00000342                __vector_17
+                0x00000342                __vector_19
+                0x00000342                __vector_7
+                0x00000342                __vector_5
+                0x00000342                __vector_4
+                0x00000342                __vector_9
+                0x00000342                __vector_2
+                0x00000342                __vector_21
+                0x00000342                __vector_15
+                0x00000342                __vector_8
+                0x00000342                __vector_14
+                0x00000342                __vector_10
+                0x00000342                __vector_16
+                0x00000342                __vector_18
+                0x00000342                __vector_20
+                0x00000346                . = ALIGN (0x2)
+ *(.text.*)
+ .text.i2c_init
+                0x00000346       0x12 i2c.o
+                0x00000346                i2c_init
+ .text.i2c_start
+                0x00000358       0x64 i2c.o
+                0x00000358                i2c_start
+ .text.i2c_stop
+                0x000003bc        0x8 i2c.o
+                0x000003bc                i2c_stop
+ .text.i2c_byte
+                0x000003c4       0x34 i2c.o
+                0x000003c4                i2c_byte
+ .text.lcd_charMode
+                0x000003f8        0x6 lcd.o
+                0x000003f8                lcd_charMode
+ .text.lcd_drawPixel
+                0x000003fe       0x7a lcd.o
+                0x000003fe                lcd_drawPixel
+ .text.lcd_drawLine
+                0x00000478       0xee lcd.o
+                0x00000478                lcd_drawLine
+ .text.lcd_fillRect
+                0x00000566       0x64 lcd.o
+                0x00000566                lcd_fillRect
+ .text.lcd_drawCircle
+                0x000005ca      0x176 lcd.o
+                0x000005ca                lcd_drawCircle
+ .text.lcd_fillCircle
+                0x00000740       0x32 lcd.o
+                0x00000740                lcd_fillCircle
+ .text.lcd_data
+                0x00000772       0x4c lcd.o
+                0x00000772                lcd_data
+ .text.lcd_command
+                0x000007be       0x44 lcd.o
+                0x000007be                lcd_command
+ .text.lcd_gotoxy
+                0x00000802       0x78 lcd.o
+                0x00000802                lcd_gotoxy
+ .text.lcd_display
+                0x0000087a       0x30 lcd.o
+                0x0000087a                lcd_display
+ .text.lcd_putc
+                0x000008aa      0x30c lcd.o
+                0x000008aa                lcd_putc
+ .text.lcd_puts
+                0x00000bb6       0x1e lcd.o
+                0x00000bb6                lcd_puts
+ .text.lcd_home
+                0x00000bd4        0xa lcd.o
+                0x00000bd4                lcd_home
+ .text.lcd_clrscr
+                0x00000bde       0x48 lcd.o
+                0x00000bde                lcd_clrscr
+ .text.lcd_init
+                0x00000c26       0x66 lcd.o
+                0x00000c26                lcd_init
+ .text.__vector_1
+                0x00000c8c       0x3a main.o
+                0x00000c8c                __vector_1
+ .text._Z11init_buttonv
+                0x00000cc6       0x40 main.o
+                0x00000cc6                init_button()
+ .text._Z8end_gamev
+                0x00000d06       0x32 main.o
+                0x00000d06                end_game()
+ .text._Z11delete_ballhh
+                0x00000d38        0xa main.o
+                0x00000d38                delete_ball(unsigned char, unsigned char)
+ .text._Z9move_ballhh
+                0x00000d42        0xa main.o
+                0x00000d42                move_ball(unsigned char, unsigned char)
+ .text._Z6playerh
+                0x00000d4c        0xa main.o
+                0x00000d4c                player(unsigned char)
+ .text._Z13delete_columnii
+                0x00000d56       0x3a main.o
+                0x00000d56                delete_column(int, int)
+ .text._Z11draw_columnii
+                0x00000d90       0x3a main.o
+                0x00000d90                draw_column(int, int)
+ .text.main     0x00000dca       0x98 main.o
+                0x00000dca                main
+                0x00000e62                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000e62        0x0 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00000e62                exit
+                0x00000e62                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000e62        0x4 d:/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000e66                _etext = .
+
+.data           0x00800100       0x26 load address 0x00000e66
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100       0x24 main.o
+ *(.data*)
+ .data.charMode
+                0x00800124        0x1 lcd.o
+ .data.pos      0x00800125        0x1 main.o
+                0x00800125                pos
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800126                . = ALIGN (0x2)
+                0x00800126                _edata = .
+                0x00800126                PROVIDE (__data_end, .)
+
+.bss            0x00800126      0x404
+                0x00800126                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ .bss.cursorPosition
+                0x00800126        0x2 lcd.o
+ .bss.displayBuffer
+                0x00800128      0x400 lcd.o
+ .bss.doc       0x00800528        0x1 main.o
+                0x00800528                doc
+ *(COMMON)
+ COMMON         0x00800529        0x1 i2c.o
+                0x00800529                I2C_ErrorCode
+                0x0080052a                PROVIDE (__bss_end, .)
+                0x00000e66                __data_load_start = LOADADDR (.data)
+                0x00000e8c                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0080052a        0x0
+                0x0080052a                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0080052a                PROVIDE (__noinit_end, .)
+                0x0080052a                _end = .
+                0x0080052a                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x170
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x48 i2c.o
+ .debug_aranges
+                0x00000048       0xc0 lcd.o
+ .debug_aranges
+                0x00000108       0x68 main.o
+
+.debug_pubnames
+                0x00000000      0x32c
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x38 font.o
+ .debug_pubnames
+                0x00000038       0x7a i2c.o
+ .debug_pubnames
+                0x000000b2      0x173 lcd.o
+ .debug_pubnames
+                0x00000225      0x107 main.o
+
+.debug_info     0x00000000      0xf68
+ *(.debug_info)
+ .debug_info    0x00000000       0xc5 font.o
+ .debug_info    0x000000c5      0x18b i2c.o
+ .debug_info    0x00000250      0xa51 lcd.o
+ .debug_info    0x00000ca1      0x2c7 main.o
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x406
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x5d font.o
+ .debug_abbrev  0x0000005d       0xad i2c.o
+ .debug_abbrev  0x0000010a      0x21a lcd.o
+ .debug_abbrev  0x00000324       0xe2 main.o
+
+.debug_line     0x00000000      0xd13
+ *(.debug_line)
+ .debug_line    0x00000000       0x4d font.o
+ .debug_line    0x0000004d      0x238 i2c.o
+ .debug_line    0x00000285      0x799 lcd.o
+ .debug_line    0x00000a1e      0x2f5 main.o
+
+.debug_frame    0x00000000      0x280
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x70 i2c.o
+ .debug_frame   0x00000070      0x160 lcd.o
+ .debug_frame   0x000001d0       0xb0 main.o
+
+.debug_str      0x00000000      0x448
+ *(.debug_str)
+ .debug_str     0x00000000       0xa2 font.o
+                                 0xdb (size before relaxing)
+ .debug_str     0x000000a2       0x79 i2c.o
+                                0x12f (size before relaxing)
+ .debug_str     0x0000011b      0x204 lcd.o
+                                0x2dc (size before relaxing)
+ .debug_str     0x0000031f      0x129 main.o
+                                0x1d6 (size before relaxing)
+
+.debug_loc      0x00000000      0xde1
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x31 i2c.o
+ .debug_loc     0x00000031      0xce6 lcd.o
+ .debug_loc     0x00000d17       0xca main.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(oled2.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000      0x1f0
+ .debug_ranges  0x00000000       0x40 i2c.o
+ .debug_ranges  0x00000040      0x150 lcd.o
+ .debug_ranges  0x00000190       0x60 main.o

@@ -1,0 +1,224 @@
+
+i2cEasy.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ec  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000001  00800060  00800060  00000160  2**0
+                  ALLOC
+  2 .debug_aranges 00000028  00000000  00000000  00000160  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 00000039  00000000  00000000  00000188  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000000b9  00000000  00000000  000001c1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000081  00000000  00000000  0000027a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000143  00000000  00000000  000002fb  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000030  00000000  00000000  00000440  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000000b6  00000000  00000000  00000470  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000020  00000000  00000000  00000526  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	12 c0       	rjmp	.+36     	; 0x48 <__vector_17>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a1 36       	cpi	r26, 0x61	; 97
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	2c d0       	rcall	.+88     	; 0x9c <main>
+  44:	51 c0       	rjmp	.+162    	; 0xe8 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <__vector_17>:
+#define SLAVE_ADDRESS (0x01)
+
+uint8_t adc_value; // the value to send
+
+// interrupt routine for TWI message handling
+ISR(TWI_vect)
+  48:	1f 92       	push	r1
+  4a:	0f 92       	push	r0
+  4c:	0f b6       	in	r0, 0x3f	; 63
+  4e:	0f 92       	push	r0
+  50:	11 24       	eor	r1, r1
+  52:	8f 93       	push	r24
+  54:	ef 93       	push	r30
+  56:	ff 93       	push	r31
+{
+// react on TWI status and handle different cases
+uint8_t status = TWSR & 0xFC; // mask-out the prescaler bits
+  58:	81 b1       	in	r24, 0x01	; 1
+switch(status)
+  5a:	8c 7f       	andi	r24, 0xFC	; 252
+  5c:	88 3a       	cpi	r24, 0xA8	; 168
+  5e:	19 f0       	breq	.+6      	; 0x66 <__vector_17+0x1e>
+  60:	88 3c       	cpi	r24, 0xC8	; 200
+  62:	79 f4       	brne	.+30     	; 0x82 <__vector_17+0x3a>
+  64:	09 c0       	rjmp	.+18     	; 0x78 <__vector_17+0x30>
+{
+case TW_ST_SLA_ACK:   // own SLA+R received, acknoledge sent
+TWDR = adc_value;
+  66:	80 91 60 00 	lds	r24, 0x0060
+  6a:	83 b9       	out	0x03, r24	; 3
+TWCR &= ~((1<<TWSTO) | (1<<TWEA));
+  6c:	e6 e5       	ldi	r30, 0x56	; 86
+  6e:	f0 e0       	ldi	r31, 0x00	; 0
+  70:	80 81       	ld	r24, Z
+  72:	8f 7a       	andi	r24, 0xAF	; 175
+  74:	80 83       	st	Z, r24
+  76:	05 c0       	rjmp	.+10     	; 0x82 <__vector_17+0x3a>
+break;
+
+case TW_ST_LAST_DATA: // last byte transmitted ACK received
+TWCR |= (1<<TWEA); // set TWEA to enter slave mode
+  78:	e6 e5       	ldi	r30, 0x56	; 86
+  7a:	f0 e0       	ldi	r31, 0x00	; 0
+  7c:	80 81       	ld	r24, Z
+  7e:	80 64       	ori	r24, 0x40	; 64
+  80:	80 83       	st	Z, r24
+break;
+}
+TWCR |= (1<<TWINT);  // set TWINT -> activate TWI hardware
+  82:	e6 e5       	ldi	r30, 0x56	; 86
+  84:	f0 e0       	ldi	r31, 0x00	; 0
+  86:	80 81       	ld	r24, Z
+  88:	80 68       	ori	r24, 0x80	; 128
+  8a:	80 83       	st	Z, r24
+}
+  8c:	ff 91       	pop	r31
+  8e:	ef 91       	pop	r30
+  90:	8f 91       	pop	r24
+  92:	0f 90       	pop	r0
+  94:	0f be       	out	0x3f, r0	; 63
+  96:	0f 90       	pop	r0
+  98:	1f 90       	pop	r1
+  9a:	18 95       	reti
+
+0000009c <main>:
+
+int main(void)
+  9c:	cf 93       	push	r28
+  9e:	df 93       	push	r29
+{
+// TWI setup
+sei(); // enable global interrupt
+  a0:	78 94       	sei
+
+// set slave address to 0x01, ignore general call
+TWAR = (SLAVE_ADDRESS << 1) | 0x00;
+  a2:	82 e0       	ldi	r24, 0x02	; 2
+  a4:	82 b9       	out	0x02, r24	; 2
+// TWI-ENable , TWI Interrupt Enable
+TWCR |= (1<<TWEA) | (1<<TWEN) | (1<<TWIE);
+  a6:	e6 e5       	ldi	r30, 0x56	; 86
+  a8:	f0 e0       	ldi	r31, 0x00	; 0
+  aa:	80 81       	ld	r24, Z
+  ac:	85 64       	ori	r24, 0x45	; 69
+  ae:	80 83       	st	Z, r24
+
+// ADC setup
+ADCSRA |= (1<<ADEN);
+  b0:	e6 e2       	ldi	r30, 0x26	; 38
+  b2:	f0 e0       	ldi	r31, 0x00	; 0
+  b4:	80 81       	ld	r24, Z
+  b6:	80 68       	ori	r24, 0x80	; 128
+  b8:	80 83       	st	Z, r24
+ADMUX  |= ( (1<<REFS1) | (1<<REFS0) ); // select internal reference
+  ba:	e7 e2       	ldi	r30, 0x27	; 39
+  bc:	f0 e0       	ldi	r31, 0x00	; 0
+  be:	80 81       	ld	r24, Z
+  c0:	80 6c       	ori	r24, 0xC0	; 192
+  c2:	80 83       	st	Z, r24
+ADMUX  |= 3;   // select channel 5 (pin ADC5)
+  c4:	80 81       	ld	r24, Z
+  c6:	83 60       	ori	r24, 0x03	; 3
+  c8:	80 83       	st	Z, r24
+
+// infinite loop
+for (;;)
+{
+ADCSRA |= (1<<ADSC);        // start single measurement
+  ca:	e6 e2       	ldi	r30, 0x26	; 38
+  cc:	f0 e0       	ldi	r31, 0x00	; 0
+while(ADCSRA & (1<<ADSC));  // wait until measurement done
+
+// read result bytes (low and high) and reduce to 8-bits
+adc_value = ADCL;
+  ce:	c4 e2       	ldi	r28, 0x24	; 36
+  d0:	d0 e0       	ldi	r29, 0x00	; 0
+adc_value >>= 2;          // drop 2 least significant bits
+adc_value |= (ADCH << 6); // add two most significant bits
+  d2:	a5 e2       	ldi	r26, 0x25	; 37
+  d4:	b0 e0       	ldi	r27, 0x00	; 0
+ADMUX  |= 3;   // select channel 5 (pin ADC5)
+
+// infinite loop
+for (;;)
+{
+ADCSRA |= (1<<ADSC);        // start single measurement
+  d6:	80 81       	ld	r24, Z
+  d8:	80 64       	ori	r24, 0x40	; 64
+  da:	80 83       	st	Z, r24
+while(ADCSRA & (1<<ADSC));  // wait until measurement done
+  dc:	80 81       	ld	r24, Z
+  de:	86 fd       	sbrc	r24, 6
+  e0:	fd cf       	rjmp	.-6      	; 0xdc <main+0x40>
+
+// read result bytes (low and high) and reduce to 8-bits
+adc_value = ADCL;
+  e2:	88 81       	ld	r24, Y
+adc_value >>= 2;          // drop 2 least significant bits
+adc_value |= (ADCH << 6); // add two most significant bits
+  e4:	8c 91       	ld	r24, X
+  e6:	f7 cf       	rjmp	.-18     	; 0xd6 <main+0x3a>
+
+000000e8 <_exit>:
+  e8:	f8 94       	cli
+
+000000ea <__stop_program>:
+  ea:	ff cf       	rjmp	.-2      	; 0xea <__stop_program>

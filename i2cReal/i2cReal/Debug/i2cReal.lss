@@ -1,0 +1,173 @@
+
+i2cReal.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000c8  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000002  00800060  000000c8  0000013c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 00000028  00000000  00000000  0000013e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 0000003d  00000000  00000000  00000166  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000000b9  00000000  00000000  000001a3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000081  00000000  00000000  0000025c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   000000fb  00000000  00000000  000002dd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000030  00000000  00000000  000003d8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000000ba  00000000  00000000  00000408  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000020  00000000  00000000  000004c2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1d c0       	rjmp	.+58     	; 0x4c <__bad_interrupt>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	15 c0       	rjmp	.+42     	; 0x4e <__vector_17>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	e8 ec       	ldi	r30, 0xC8	; 200
+  3a:	f0 e0       	ldi	r31, 0x00	; 0
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a2 36       	cpi	r26, 0x62	; 98
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+  48:	2d d0       	rcall	.+90     	; 0xa4 <main>
+  4a:	3c c0       	rjmp	.+120    	; 0xc4 <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <__vector_17>:
+#include <avr/interrupt.h>
+
+#define F_CPU 10000000UL
+uint8_t slave_address = 0x01;
+
+ISR(TWI_vect){
+  4e:	1f 92       	push	r1
+  50:	0f 92       	push	r0
+  52:	0f b6       	in	r0, 0x3f	; 63
+  54:	0f 92       	push	r0
+  56:	11 24       	eor	r1, r1
+  58:	8f 93       	push	r24
+  5a:	ef 93       	push	r30
+  5c:	ff 93       	push	r31
+	uint8_t status = TWSR & 0xFC;
+  5e:	81 b1       	in	r24, 0x01	; 1
+	switch(status){
+  60:	8c 7f       	andi	r24, 0xFC	; 252
+  62:	88 3a       	cpi	r24, 0xA8	; 168
+  64:	19 f0       	breq	.+6      	; 0x6c <__vector_17+0x1e>
+  66:	88 3c       	cpi	r24, 0xC8	; 200
+  68:	81 f4       	brne	.+32     	; 0x8a <__vector_17+0x3c>
+  6a:	0a c0       	rjmp	.+20     	; 0x80 <__vector_17+0x32>
+		case TW_ST_SLA_ACK:
+		     TWDR = 123;
+  6c:	8b e7       	ldi	r24, 0x7B	; 123
+  6e:	83 b9       	out	0x03, r24	; 3
+			 TWCR =(1<<TWEN);
+  70:	e6 e5       	ldi	r30, 0x56	; 86
+  72:	f0 e0       	ldi	r31, 0x00	; 0
+  74:	84 e0       	ldi	r24, 0x04	; 4
+  76:	80 83       	st	Z, r24
+			 TWCR &= ~((1<<TWEA)|(1<<TWSTO));
+  78:	80 81       	ld	r24, Z
+  7a:	8f 7a       	andi	r24, 0xAF	; 175
+  7c:	80 83       	st	Z, r24
+  7e:	05 c0       	rjmp	.+10     	; 0x8a <__vector_17+0x3c>
+		     break;
+		case TW_ST_LAST_DATA:
+		     TWCR |= (1<<TWEA);
+  80:	e6 e5       	ldi	r30, 0x56	; 86
+  82:	f0 e0       	ldi	r31, 0x00	; 0
+  84:	80 81       	ld	r24, Z
+  86:	80 64       	ori	r24, 0x40	; 64
+  88:	80 83       	st	Z, r24
+		break;
+	}
+	TWCR |= (1<<TWINT);
+  8a:	e6 e5       	ldi	r30, 0x56	; 86
+  8c:	f0 e0       	ldi	r31, 0x00	; 0
+  8e:	80 81       	ld	r24, Z
+  90:	80 68       	ori	r24, 0x80	; 128
+  92:	80 83       	st	Z, r24
+	}
+  94:	ff 91       	pop	r31
+  96:	ef 91       	pop	r30
+  98:	8f 91       	pop	r24
+  9a:	0f 90       	pop	r0
+  9c:	0f be       	out	0x3f, r0	; 63
+  9e:	0f 90       	pop	r0
+  a0:	1f 90       	pop	r1
+  a2:	18 95       	reti
+
+000000a4 <main>:
+
+
+int main(void)
+{
+	sei();
+  a4:	78 94       	sei
+	
+	TWAR |= (slave_address <<1)|0x01; 
+  a6:	e2 e2       	ldi	r30, 0x22	; 34
+  a8:	f0 e0       	ldi	r31, 0x00	; 0
+  aa:	90 81       	ld	r25, Z
+  ac:	91 60       	ori	r25, 0x01	; 1
+  ae:	80 91 60 00 	lds	r24, 0x0060
+  b2:	88 0f       	add	r24, r24
+  b4:	89 2b       	or	r24, r25
+  b6:	80 83       	st	Z, r24
+	TWCR |= (1<<TWEA)|(1<<TWEN)|(1<<TWIE); //ENABLE, B?T NG?T
+  b8:	e6 e5       	ldi	r30, 0x56	; 86
+  ba:	f0 e0       	ldi	r31, 0x00	; 0
+  bc:	80 81       	ld	r24, Z
+  be:	85 64       	ori	r24, 0x45	; 69
+  c0:	80 83       	st	Z, r24
+  c2:	ff cf       	rjmp	.-2      	; 0xc2 <main+0x1e>
+
+000000c4 <_exit>:
+  c4:	f8 94       	cli
+
+000000c6 <__stop_program>:
+  c6:	ff cf       	rjmp	.-2      	; 0xc6 <__stop_program>

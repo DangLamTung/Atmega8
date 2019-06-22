@@ -1,0 +1,601 @@
+
+testI2cmaster.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000027c  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000016  00800060  0000027c  000002f0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 000001d0  00000000  00000000  00000306  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 0000031b  00000000  00000000  000004d6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   00000a62  00000000  00000000  000007f1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 0000038f  00000000  00000000  00001253  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000f19  00000000  00000000  000015e2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000340  00000000  00000000  000024fc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000003fb  00000000  00000000  0000283c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    00000576  00000000  00000000  00002c37  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000200  00000000  00000000  000031ad  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+
+#define sbi(port,bit) port |= (1<<bit)
+#define cbi(port,bit) port &= ~(1<<bit)
+#define BITRATE(TWSR)	((F_CPU/SCL_CLK)-16)/(2*pow(4,(TWSR&((1<<TWPS0)|(1<<TWPS1)))))
+void TWI_Start(){ TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);}
+void TWI_Startr(){ TWCR = (1<<TWINT)|(1<<TWEN);}
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	24 c0       	rjmp	.+72     	; 0x4c <__bad_interrupt>
+   4:	23 c0       	rjmp	.+70     	; 0x4c <__bad_interrupt>
+   6:	22 c0       	rjmp	.+68     	; 0x4c <__bad_interrupt>
+   8:	21 c0       	rjmp	.+66     	; 0x4c <__bad_interrupt>
+   a:	20 c0       	rjmp	.+64     	; 0x4c <__bad_interrupt>
+   c:	1f c0       	rjmp	.+62     	; 0x4c <__bad_interrupt>
+   e:	1e c0       	rjmp	.+60     	; 0x4c <__bad_interrupt>
+  10:	1d c0       	rjmp	.+58     	; 0x4c <__bad_interrupt>
+  12:	1c c0       	rjmp	.+56     	; 0x4c <__bad_interrupt>
+  14:	1b c0       	rjmp	.+54     	; 0x4c <__bad_interrupt>
+  16:	1a c0       	rjmp	.+52     	; 0x4c <__bad_interrupt>
+  18:	19 c0       	rjmp	.+50     	; 0x4c <__bad_interrupt>
+  1a:	18 c0       	rjmp	.+48     	; 0x4c <__bad_interrupt>
+  1c:	17 c0       	rjmp	.+46     	; 0x4c <__bad_interrupt>
+  1e:	16 c0       	rjmp	.+44     	; 0x4c <__bad_interrupt>
+  20:	15 c0       	rjmp	.+42     	; 0x4c <__bad_interrupt>
+  22:	14 c0       	rjmp	.+40     	; 0x4c <__bad_interrupt>
+  24:	13 c0       	rjmp	.+38     	; 0x4c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ec e7       	ldi	r30, 0x7C	; 124
+  3a:	f2 e0       	ldi	r31, 0x02	; 2
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a6 37       	cpi	r26, 0x76	; 118
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+  48:	e0 d0       	rcall	.+448    	; 0x20a <main>
+  4a:	16 c1       	rjmp	.+556    	; 0x278 <_exit>
+
+0000004c <__bad_interrupt>:
+  4c:	d9 cf       	rjmp	.-78     	; 0x0 <__vectors>
+
+0000004e <_Z9TWI_Startv>:
+#include <avr/delay.h>
+
+#define sbi(port,bit) port |= (1<<bit)
+#define cbi(port,bit) port &= ~(1<<bit)
+#define BITRATE(TWSR)	((F_CPU/SCL_CLK)-16)/(2*pow(4,(TWSR&((1<<TWPS0)|(1<<TWPS1)))))
+void TWI_Start(){ TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);}
+  4e:	84 ea       	ldi	r24, 0xA4	; 164
+  50:	86 bf       	out	0x36, r24	; 54
+  52:	08 95       	ret
+
+00000054 <_Z7waitI2Cv>:
+void TWI_Stop(){
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
+	while(TWCR&(1<<TWSTO));
+}
+
+void waitI2C() { while (!(TWCR & (1<<TWINT)));}
+  54:	e6 e5       	ldi	r30, 0x56	; 86
+  56:	f0 e0       	ldi	r31, 0x00	; 0
+  58:	80 81       	ld	r24, Z
+  5a:	88 23       	and	r24, r24
+  5c:	ec f7       	brge	.-6      	; 0x58 <_Z7waitI2Cv+0x4>
+  5e:	08 95       	ret
+
+00000060 <_Z14get_i2c_statusv>:
+uint8_t get_i2c_status() {return (TWSR & 0xF8); }
+  60:	81 b1       	in	r24, 0x01	; 1
+  62:	88 7f       	andi	r24, 0xF8	; 248
+  64:	08 95       	ret
+
+00000066 <_Z8I2C_Initv>:
+void I2C_Init()			/* I2C initialize function */
+{
+	TWSR = 0x00;
+  66:	11 b8       	out	0x01, r1	; 1
+	TWBR = 32;
+  68:	80 e2       	ldi	r24, 0x20	; 32
+  6a:	80 b9       	out	0x00, r24	; 0
+}
+  6c:	08 95       	ret
+
+0000006e <_Z7readI2Cc>:
+
+uint8_t readI2C(char address){
+  6e:	1f 93       	push	r17
+  70:	18 2f       	mov	r17, r24
+	uint8_t status;
+	TWI_Start();
+  72:	ed df       	rcall	.-38     	; 0x4e <_Z9TWI_Startv>
+	waitI2C();
+  74:	ef df       	rcall	.-34     	; 0x54 <_Z7waitI2Cv>
+	if (get_i2c_status() != 0x08) return 0;//send connect status
+  76:	f4 df       	rcall	.-24     	; 0x60 <_Z14get_i2c_statusv>
+  78:	88 30       	cpi	r24, 0x08	; 8
+  7a:	11 f0       	breq	.+4      	; 0x80 <_Z7readI2Cc+0x12>
+  7c:	80 e0       	ldi	r24, 0x00	; 0
+  7e:	0f c0       	rjmp	.+30     	; 0x9e <_Z7readI2Cc+0x30>
+	waitI2C();
+  80:	e9 df       	rcall	.-46     	; 0x54 <_Z7waitI2Cv>
+	TWDR = address;
+  82:	13 b9       	out	0x03, r17	; 3
+	TWCR = (1<<TWINT)|(1<<TWEN);
+  84:	84 e8       	ldi	r24, 0x84	; 132
+  86:	86 bf       	out	0x36, r24	; 54
+	waitI2C();
+  88:	e5 df       	rcall	.-54     	; 0x54 <_Z7waitI2Cv>
+	status = get_i2c_status();
+  8a:	ea df       	rcall	.-44     	; 0x60 <_Z14get_i2c_statusv>
+	if(status == 0x40)
+  8c:	80 34       	cpi	r24, 0x40	; 64
+  8e:	11 f4       	brne	.+4      	; 0x94 <_Z7readI2Cc+0x26>
+  90:	81 e0       	ldi	r24, 0x01	; 1
+  92:	05 c0       	rjmp	.+10     	; 0x9e <_Z7readI2Cc+0x30>
+	return 1;
+	if(status == 0x48)
+  94:	88 34       	cpi	r24, 0x48	; 72
+  96:	11 f0       	breq	.+4      	; 0x9c <_Z7readI2Cc+0x2e>
+  98:	83 e0       	ldi	r24, 0x03	; 3
+  9a:	01 c0       	rjmp	.+2      	; 0x9e <_Z7readI2Cc+0x30>
+  9c:	82 e0       	ldi	r24, 0x02	; 2
+	return 2;
+	return 3;
+}
+  9e:	1f 91       	pop	r17
+  a0:	08 95       	ret
+
+000000a2 <_Z8writeI2Cc>:
+	return 1;
+	if(status == 0x48)
+	return 2;
+	return 3;
+}
+uint8_t writeI2C(char data){
+  a2:	1f 93       	push	r17
+  a4:	18 2f       	mov	r17, r24
+	uint8_t status;
+	TWI_Start();
+  a6:	d3 df       	rcall	.-90     	; 0x4e <_Z9TWI_Startv>
+	waitI2C();
+  a8:	d5 df       	rcall	.-86     	; 0x54 <_Z7waitI2Cv>
+	if (get_i2c_status() != 0x08) return 0;//send connect status
+  aa:	da df       	rcall	.-76     	; 0x60 <_Z14get_i2c_statusv>
+  ac:	88 30       	cpi	r24, 0x08	; 8
+  ae:	11 f0       	breq	.+4      	; 0xb4 <_Z8writeI2Cc+0x12>
+  b0:	80 e0       	ldi	r24, 0x00	; 0
+  b2:	0f c0       	rjmp	.+30     	; 0xd2 <_Z8writeI2Cc+0x30>
+	waitI2C();
+  b4:	cf df       	rcall	.-98     	; 0x54 <_Z7waitI2Cv>
+	TWDR = data;
+  b6:	13 b9       	out	0x03, r17	; 3
+	TWCR = (1<<TWINT)|(1<<TWEN);
+  b8:	84 e8       	ldi	r24, 0x84	; 132
+  ba:	86 bf       	out	0x36, r24	; 54
+	waitI2C();
+  bc:	cb df       	rcall	.-106    	; 0x54 <_Z7waitI2Cv>
+	status = get_i2c_status();
+  be:	d0 df       	rcall	.-96     	; 0x60 <_Z14get_i2c_statusv>
+	if(status == 0x40)
+  c0:	80 34       	cpi	r24, 0x40	; 64
+  c2:	11 f4       	brne	.+4      	; 0xc8 <_Z8writeI2Cc+0x26>
+  c4:	81 e0       	ldi	r24, 0x01	; 1
+  c6:	05 c0       	rjmp	.+10     	; 0xd2 <_Z8writeI2Cc+0x30>
+	return 1;
+	if(status == 0x48)
+  c8:	88 34       	cpi	r24, 0x48	; 72
+  ca:	11 f0       	breq	.+4      	; 0xd0 <_Z8writeI2Cc+0x2e>
+  cc:	83 e0       	ldi	r24, 0x03	; 3
+  ce:	01 c0       	rjmp	.+2      	; 0xd2 <_Z8writeI2Cc+0x30>
+  d0:	82 e0       	ldi	r24, 0x02	; 2
+	return 2;
+	return 3;
+}
+  d2:	1f 91       	pop	r17
+  d4:	08 95       	ret
+
+000000d6 <_Z9write2Nibh>:
+  l >>= 4;
+  return (h|l);
+}
+void write2Nib(uint8_t chr){
+  uint8_t h, l, temp;
+  temp = data_o & 0x0F;
+  d6:	e8 e3       	ldi	r30, 0x38	; 56
+  d8:	f0 e0       	ldi	r31, 0x00	; 0
+  da:	20 81       	ld	r18, Z
+  dc:	2f 70       	andi	r18, 0x0F	; 15
+  
+  h = chr & 0xF0;
+  l = (chr<<4)& 0xF0;
+  
+  data_o = (h|temp);
+  de:	98 2f       	mov	r25, r24
+  e0:	90 7f       	andi	r25, 0xF0	; 240
+  e2:	92 2b       	or	r25, r18
+  e4:	90 83       	st	Z, r25
+  sbi(ctrl,EN);
+  e6:	90 81       	ld	r25, Z
+  e8:	94 60       	ori	r25, 0x04	; 4
+  ea:	90 83       	st	Z, r25
+  cbi(ctrl,EN);
+  ec:	90 81       	ld	r25, Z
+  ee:	9b 7f       	andi	r25, 0xFB	; 251
+  f0:	90 83       	st	Z, r25
+  
+  data_o = (l|temp);
+  f2:	82 95       	swap	r24
+  f4:	80 7f       	andi	r24, 0xF0	; 240
+  f6:	82 2b       	or	r24, r18
+  f8:	80 83       	st	Z, r24
+  sbi(ctrl,EN);
+  fa:	80 81       	ld	r24, Z
+  fc:	84 60       	ori	r24, 0x04	; 4
+  fe:	80 83       	st	Z, r24
+  cbi(ctrl,EN); 
+ 100:	80 81       	ld	r24, Z
+ 102:	8b 7f       	andi	r24, 0xFB	; 251
+ 104:	80 83       	st	Z, r24
+}
+ 106:	08 95       	ret
+
+00000108 <_Z8wait_LCDv>:
+	__asm__ volatile (
+		"1: sbiw %0,1" "\n\t"
+		"brne 1b"
+		: "=w" (__count)
+		: "0" (__count)
+	);
+ 108:	8a ef       	ldi	r24, 0xFA	; 250
+ 10a:	90 e0       	ldi	r25, 0x00	; 0
+ 10c:	01 97       	sbiw	r24, 0x01	; 1
+ 10e:	f1 f7       	brne	.-4      	; 0x10c <_Z8wait_LCDv+0x4>
+
+void wait_LCD(){
+ _delay_ms(1);
+}
+ 110:	08 95       	ret
+
+00000112 <_Z8init_LCDv>:
+
+void init_LCD(){
+ 112:	0f 93       	push	r16
+ 114:	1f 93       	push	r17
+  ddr_ctrl = 0xFF;
+ 116:	e7 e3       	ldi	r30, 0x37	; 55
+ 118:	f0 e0       	ldi	r31, 0x00	; 0
+ 11a:	8f ef       	ldi	r24, 0xFF	; 255
+ 11c:	80 83       	st	Z, r24
+  ddr_data = 0xFF;
+ 11e:	80 83       	st	Z, r24
+  
+  cbi(ctrl,RS);
+ 120:	08 e3       	ldi	r16, 0x38	; 56
+ 122:	10 e0       	ldi	r17, 0x00	; 0
+ 124:	f8 01       	movw	r30, r16
+ 126:	80 81       	ld	r24, Z
+ 128:	8e 7f       	andi	r24, 0xFE	; 254
+ 12a:	80 83       	st	Z, r24
+  cbi(ctrl,RW);
+ 12c:	80 81       	ld	r24, Z
+ 12e:	8d 7f       	andi	r24, 0xFD	; 253
+ 130:	80 83       	st	Z, r24
+  cbi(ctrl,EN);
+ 132:	80 81       	ld	r24, Z
+ 134:	8b 7f       	andi	r24, 0xFB	; 251
+ 136:	80 83       	st	Z, r24
+  
+  sbi(ctrl,EN);
+ 138:	80 81       	ld	r24, Z
+ 13a:	84 60       	ori	r24, 0x04	; 4
+ 13c:	80 83       	st	Z, r24
+  sbi(data_o,5); // 101
+ 13e:	80 81       	ld	r24, Z
+ 140:	80 62       	ori	r24, 0x20	; 32
+ 142:	80 83       	st	Z, r24
+  cbi(ctrl,EN);
+ 144:	80 81       	ld	r24, Z
+ 146:	8b 7f       	andi	r24, 0xFB	; 251
+ 148:	80 83       	st	Z, r24
+  
+  wait_LCD();
+ 14a:	de df       	rcall	.-68     	; 0x108 <_Z8wait_LCDv>
+  write2Nib(0x28);//4bit
+ 14c:	88 e2       	ldi	r24, 0x28	; 40
+ 14e:	c3 df       	rcall	.-122    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 150:	db df       	rcall	.-74     	; 0x108 <_Z8wait_LCDv>
+//hi?n control
+  cbi(ctrl,RS);
+ 152:	f8 01       	movw	r30, r16
+ 154:	80 81       	ld	r24, Z
+ 156:	8e 7f       	andi	r24, 0xFE	; 254
+ 158:	80 83       	st	Z, r24
+  write2Nib(0x0E);
+ 15a:	8e e0       	ldi	r24, 0x0E	; 14
+ 15c:	bc df       	rcall	.-136    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 15e:	d4 df       	rcall	.-88     	; 0x108 <_Z8wait_LCDv>
+//Entry mode
+    cbi(ctrl,RS);
+ 160:	f8 01       	movw	r30, r16
+ 162:	80 81       	ld	r24, Z
+ 164:	8e 7f       	andi	r24, 0xFE	; 254
+ 166:	80 83       	st	Z, r24
+  write2Nib(0x06);
+ 168:	86 e0       	ldi	r24, 0x06	; 6
+ 16a:	b5 df       	rcall	.-150    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD(); 
+ 16c:	cd df       	rcall	.-102    	; 0x108 <_Z8wait_LCDv>
+}
+ 16e:	1f 91       	pop	r17
+ 170:	0f 91       	pop	r16
+ 172:	08 95       	ret
+
+00000174 <_Z8home_LCDv>:
+
+void home_LCD(){
+  cbi(ctrl,RS);
+ 174:	e8 e3       	ldi	r30, 0x38	; 56
+ 176:	f0 e0       	ldi	r31, 0x00	; 0
+ 178:	80 81       	ld	r24, Z
+ 17a:	8e 7f       	andi	r24, 0xFE	; 254
+ 17c:	80 83       	st	Z, r24
+  write2Nib(0x02);
+ 17e:	82 e0       	ldi	r24, 0x02	; 2
+ 180:	aa df       	rcall	.-172    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 182:	c2 df       	rcall	.-124    	; 0x108 <_Z8wait_LCDv>
+}
+ 184:	08 95       	ret
+
+00000186 <_Z8move_LCDhh>:
+void move_LCD(uint8_t y, uint8_t x){
+  uint8_t ad;
+  ad = 64*(y-1)+(x-1)+0x80;
+  cbi(ctrl,RS);
+ 186:	e8 e3       	ldi	r30, 0x38	; 56
+ 188:	f0 e0       	ldi	r31, 0x00	; 0
+ 18a:	90 81       	ld	r25, Z
+ 18c:	9e 7f       	andi	r25, 0xFE	; 254
+ 18e:	90 83       	st	Z, r25
+  
+  write2Nib(ad);
+ 190:	61 58       	subi	r22, 0x81	; 129
+ 192:	90 e0       	ldi	r25, 0x00	; 0
+ 194:	01 97       	sbiw	r24, 0x01	; 1
+ 196:	00 24       	eor	r0, r0
+ 198:	96 95       	lsr	r25
+ 19a:	87 95       	ror	r24
+ 19c:	07 94       	ror	r0
+ 19e:	96 95       	lsr	r25
+ 1a0:	87 95       	ror	r24
+ 1a2:	07 94       	ror	r0
+ 1a4:	98 2f       	mov	r25, r24
+ 1a6:	80 2d       	mov	r24, r0
+ 1a8:	86 0f       	add	r24, r22
+ 1aa:	95 df       	rcall	.-214    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 1ac:	ad df       	rcall	.-166    	; 0x108 <_Z8wait_LCDv>
+}
+ 1ae:	08 95       	ret
+
+000001b0 <_Z7clr_LCDv>:
+void clr_LCD(){
+  cbi(ctrl,RS);
+ 1b0:	e8 e3       	ldi	r30, 0x38	; 56
+ 1b2:	f0 e0       	ldi	r31, 0x00	; 0
+ 1b4:	80 81       	ld	r24, Z
+ 1b6:	8e 7f       	andi	r24, 0xFE	; 254
+ 1b8:	80 83       	st	Z, r24
+  write2Nib(0x01);
+ 1ba:	81 e0       	ldi	r24, 0x01	; 1
+ 1bc:	8c df       	rcall	.-232    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 1be:	a4 df       	rcall	.-184    	; 0x108 <_Z8wait_LCDv>
+}
+ 1c0:	08 95       	ret
+
+000001c2 <_Z11putchar_LCDh>:
+
+void putchar_LCD(uint8_t chr){
+  sbi(ctrl,RS);//data 
+ 1c2:	e8 e3       	ldi	r30, 0x38	; 56
+ 1c4:	f0 e0       	ldi	r31, 0x00	; 0
+ 1c6:	90 81       	ld	r25, Z
+ 1c8:	91 60       	ori	r25, 0x01	; 1
+ 1ca:	90 83       	st	Z, r25
+  write2Nib(chr);
+ 1cc:	84 df       	rcall	.-248    	; 0xd6 <_Z9write2Nibh>
+  wait_LCD();
+ 1ce:	9c df       	rcall	.-200    	; 0x108 <_Z8wait_LCDv>
+}
+ 1d0:	08 95       	ret
+
+000001d2 <_Z9print_LCDPch>:
+void print_LCD(char*str,unsigned char len){
+ 1d2:	0f 93       	push	r16
+ 1d4:	1f 93       	push	r17
+ 1d6:	cf 93       	push	r28
+ 1d8:	df 93       	push	r29
+ 1da:	06 2f       	mov	r16, r22
+  unsigned char i;
+  for(i=0;i<len;i++){
+ 1dc:	66 23       	and	r22, r22
+ 1de:	81 f0       	breq	.+32     	; 0x200 <_Z9print_LCDPch+0x2e>
+ 1e0:	18 2f       	mov	r17, r24
+ 1e2:	28 2f       	mov	r18, r24
+ 1e4:	39 2f       	mov	r19, r25
+ 1e6:	e9 01       	movw	r28, r18
+    if(str[i]>0){putchar_LCD(str[i]);
+ 1e8:	88 81       	ld	r24, Y
+ 1ea:	88 23       	and	r24, r24
+ 1ec:	11 f0       	breq	.+4      	; 0x1f2 <_Z9print_LCDPch+0x20>
+ 1ee:	e9 df       	rcall	.-46     	; 0x1c2 <_Z11putchar_LCDh>
+ 1f0:	02 c0       	rjmp	.+4      	; 0x1f6 <_Z9print_LCDPch+0x24>
+	}
+    else{ putchar_LCD(' ');}
+ 1f2:	80 e2       	ldi	r24, 0x20	; 32
+ 1f4:	e6 df       	rcall	.-52     	; 0x1c2 <_Z11putchar_LCDh>
+ 1f6:	21 96       	adiw	r28, 0x01	; 1
+  write2Nib(chr);
+  wait_LCD();
+}
+void print_LCD(char*str,unsigned char len){
+  unsigned char i;
+  for(i=0;i<len;i++){
+ 1f8:	9e 01       	movw	r18, r28
+ 1fa:	21 1b       	sub	r18, r17
+ 1fc:	20 17       	cp	r18, r16
+ 1fe:	a0 f3       	brcs	.-24     	; 0x1e8 <_Z9print_LCDPch+0x16>
+    if(str[i]>0){putchar_LCD(str[i]);
+	}
+    else{ putchar_LCD(' ');}
+  }
+}
+ 200:	df 91       	pop	r29
+ 202:	cf 91       	pop	r28
+ 204:	1f 91       	pop	r17
+ 206:	0f 91       	pop	r16
+ 208:	08 95       	ret
+
+0000020a <main>:
+
+#define slave_read_addr 0x20
+#define slave_write_addr 0x21
+#define count 10
+#define F_CPU 80000000UL
+int main(void)
+ 20a:	cf 92       	push	r12
+ 20c:	df 92       	push	r13
+ 20e:	ef 92       	push	r14
+ 210:	ff 92       	push	r15
+ 212:	0f 93       	push	r16
+ 214:	1f 93       	push	r17
+ 216:	cf 93       	push	r28
+ 218:	df 93       	push	r29
+{
+	char buffer[10];
+	init_LCD();
+ 21a:	7b df       	rcall	.-266    	; 0x112 <_Z8init_LCDv>
+	I2C_Init();
+ 21c:	24 df       	rcall	.-440    	; 0x66 <_Z8I2C_Initv>
+    clr_LCD();
+ 21e:	c8 df       	rcall	.-112    	; 0x1b0 <_Z7clr_LCDv>
+	home_LCD();
+ 220:	a9 df       	rcall	.-174    	; 0x174 <_Z8home_LCDv>
+	move_LCD(1,5);
+ 222:	81 e0       	ldi	r24, 0x01	; 1
+ 224:	65 e0       	ldi	r22, 0x05	; 5
+ 226:	af df       	rcall	.-162    	; 0x186 <_Z8move_LCDhh>
+	print_LCD("Hello World",16);
+ 228:	80 e6       	ldi	r24, 0x60	; 96
+ 22a:	90 e0       	ldi	r25, 0x00	; 0
+ 22c:	60 e1       	ldi	r22, 0x10	; 16
+ 22e:	d1 df       	rcall	.-94     	; 0x1d2 <_Z9print_LCDPch>
+    while (1) 
+    {
+		move_LCD(2,1);
+		print_LCD("sending:",8);
+ 230:	0f 2e       	mov	r0, r31
+ 232:	fc e6       	ldi	r31, 0x6C	; 108
+ 234:	cf 2e       	mov	r12, r31
+ 236:	f0 e0       	ldi	r31, 0x00	; 0
+ 238:	df 2e       	mov	r13, r31
+ 23a:	f0 2d       	mov	r31, r0
+		readI2C(slave_write_addr);
+		waitI2C();
+ 23c:	ee 24       	eor	r14, r14
+ 23e:	c9 e1       	ldi	r28, 0x19	; 25
+ 240:	d0 e0       	ldi	r29, 0x00	; 0
+		for(int i = 0; i<count; i++){
+		writeI2C(i);
+ 242:	88 e8       	ldi	r24, 0x88	; 136
+ 244:	93 e1       	ldi	r25, 0x13	; 19
+ 246:	08 2f       	mov	r16, r24
+ 248:	f9 2e       	mov	r15, r25
+	home_LCD();
+	move_LCD(1,5);
+	print_LCD("Hello World",16);
+    while (1) 
+    {
+		move_LCD(2,1);
+ 24a:	82 e0       	ldi	r24, 0x02	; 2
+ 24c:	61 e0       	ldi	r22, 0x01	; 1
+ 24e:	9b df       	rcall	.-202    	; 0x186 <_Z8move_LCDhh>
+		print_LCD("sending:",8);
+ 250:	c6 01       	movw	r24, r12
+ 252:	68 e0       	ldi	r22, 0x08	; 8
+ 254:	be df       	rcall	.-132    	; 0x1d2 <_Z9print_LCDPch>
+		readI2C(slave_write_addr);
+ 256:	81 e2       	ldi	r24, 0x21	; 33
+ 258:	0a df       	rcall	.-492    	; 0x6e <_Z7readI2Cc>
+		waitI2C();
+ 25a:	fc de       	rcall	.-520    	; 0x54 <_Z7waitI2Cv>
+ 25c:	1e 2d       	mov	r17, r14
+		for(int i = 0; i<count; i++){
+		writeI2C(i);
+ 25e:	81 2f       	mov	r24, r17
+ 260:	20 df       	rcall	.-448    	; 0xa2 <_Z8writeI2Cc>
+ 262:	80 2f       	mov	r24, r16
+ 264:	9f 2d       	mov	r25, r15
+ 266:	fe 01       	movw	r30, r28
+ 268:	31 97       	sbiw	r30, 0x01	; 1
+ 26a:	f1 f7       	brne	.-4      	; 0x268 <main+0x5e>
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+		{
+			// wait 1/10 ms
+			_delay_loop_2(((F_CPU) / 4e3) / 10);
+			__ticks --;
+ 26c:	01 97       	sbiw	r24, 0x01	; 1
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+ 26e:	d9 f7       	brne	.-10     	; 0x266 <main+0x5c>
+ 270:	1f 5f       	subi	r17, 0xFF	; 255
+    {
+		move_LCD(2,1);
+		print_LCD("sending:",8);
+		readI2C(slave_write_addr);
+		waitI2C();
+		for(int i = 0; i<count; i++){
+ 272:	1a 30       	cpi	r17, 0x0A	; 10
+ 274:	a1 f7       	brne	.-24     	; 0x25e <main+0x54>
+ 276:	e9 cf       	rjmp	.-46     	; 0x24a <main+0x40>
+
+00000278 <_exit>:
+ 278:	f8 94       	cli
+
+0000027a <__stop_program>:
+ 27a:	ff cf       	rjmp	.-2      	; 0x27a <__stop_program>

@@ -1,0 +1,205 @@
+
+ds1307.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000ea  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .bss          00000002  00800060  00800060  0000015e  2**0
+                  ALLOC
+  2 .debug_aranges 00000028  00000000  00000000  0000015e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 0000004e  00000000  00000000  00000186  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000000cb  00000000  00000000  000001d4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000081  00000000  00000000  0000029f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00000123  00000000  00000000  00000320  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000030  00000000  00000000  00000444  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000000c5  00000000  00000000  00000474  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_ranges 00000020  00000000  00000000  00000539  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
+   4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
+   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
+   a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
+   c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
+   e:	1b c0       	rjmp	.+54     	; 0x46 <__bad_interrupt>
+  10:	1a c0       	rjmp	.+52     	; 0x46 <__bad_interrupt>
+  12:	19 c0       	rjmp	.+50     	; 0x46 <__bad_interrupt>
+  14:	18 c0       	rjmp	.+48     	; 0x46 <__bad_interrupt>
+  16:	17 c0       	rjmp	.+46     	; 0x46 <__bad_interrupt>
+  18:	16 c0       	rjmp	.+44     	; 0x46 <__bad_interrupt>
+  1a:	15 c0       	rjmp	.+42     	; 0x46 <__bad_interrupt>
+  1c:	14 c0       	rjmp	.+40     	; 0x46 <__bad_interrupt>
+  1e:	13 c0       	rjmp	.+38     	; 0x46 <__bad_interrupt>
+  20:	12 c0       	rjmp	.+36     	; 0x46 <__bad_interrupt>
+  22:	12 c0       	rjmp	.+36     	; 0x48 <__vector_17>
+  24:	10 c0       	rjmp	.+32     	; 0x46 <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_clear_bss>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	01 c0       	rjmp	.+2      	; 0x3c <.do_clear_bss_start>
+
+0000003a <.do_clear_bss_loop>:
+  3a:	1d 92       	st	X+, r1
+
+0000003c <.do_clear_bss_start>:
+  3c:	a2 36       	cpi	r26, 0x62	; 98
+  3e:	b1 07       	cpc	r27, r17
+  40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
+  42:	40 d0       	rcall	.+128    	; 0xc4 <main>
+  44:	50 c0       	rjmp	.+160    	; 0xe6 <_exit>
+
+00000046 <__bad_interrupt>:
+  46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
+
+00000048 <__vector_17>:
+uint8_t value; // contains the received value
+
+uint8_t ongoing_transmission = 0;
+
+// interrupt routine for the timer0 overflow interrupt
+ISR(TWI_vect)
+  48:	1f 92       	push	r1
+  4a:	0f 92       	push	r0
+  4c:	0f b6       	in	r0, 0x3f	; 63
+  4e:	0f 92       	push	r0
+  50:	11 24       	eor	r1, r1
+  52:	8f 93       	push	r24
+  54:	ef 93       	push	r30
+  56:	ff 93       	push	r31
+{
+	// react on TWI status and handle different cases
+	uint8_t status = TWSR & 0xFC; // mask-out the prescaler bits
+  58:	81 b1       	in	r24, 0x01	; 1
+	switch(status)
+  5a:	8c 7f       	andi	r24, 0xFC	; 252
+  5c:	80 35       	cpi	r24, 0x50	; 80
+  5e:	c1 f0       	breq	.+48     	; 0x90 <__vector_17+0x48>
+  60:	81 35       	cpi	r24, 0x51	; 81
+  62:	18 f5       	brcc	.+70     	; 0xaa <__vector_17+0x62>
+  64:	88 30       	cpi	r24, 0x08	; 8
+  66:	19 f0       	breq	.+6      	; 0x6e <__vector_17+0x26>
+  68:	80 34       	cpi	r24, 0x40	; 64
+  6a:	f9 f4       	brne	.+62     	; 0xaa <__vector_17+0x62>
+  6c:	0b c0       	rjmp	.+22     	; 0x84 <__vector_17+0x3c>
+	{
+		case TW_START:  // start transmitted
+		ongoing_transmission = 1;
+  6e:	81 e0       	ldi	r24, 0x01	; 1
+  70:	80 93 61 00 	sts	0x0061, r24
+		// write SLA+R, SLA=0x01
+		TWDR = (SLAVE_ADDRESS << 1) | 0x01;
+  74:	81 ed       	ldi	r24, 0xD1	; 209
+  76:	83 b9       	out	0x03, r24	; 3
+		TWCR &= ~((1<<TWSTA)); // clear TWSTA
+  78:	e6 e5       	ldi	r30, 0x56	; 86
+  7a:	f0 e0       	ldi	r31, 0x00	; 0
+  7c:	80 81       	ld	r24, Z
+  7e:	8f 7d       	andi	r24, 0xDF	; 223
+  80:	80 83       	st	Z, r24
+  82:	13 c0       	rjmp	.+38     	; 0xaa <__vector_17+0x62>
+		break;
+		
+		case TW_MR_SLA_ACK: // SLA+R transmitted, ACK received
+		TWCR &= ~((1<<TWSTA) | (1<<TWSTO));
+  84:	e6 e5       	ldi	r30, 0x56	; 86
+  86:	f0 e0       	ldi	r31, 0x00	; 0
+  88:	80 81       	ld	r24, Z
+  8a:	8f 7c       	andi	r24, 0xCF	; 207
+  8c:	80 83       	st	Z, r24
+  8e:	0d c0       	rjmp	.+26     	; 0xaa <__vector_17+0x62>
+		break;
+		
+		case TW_MR_DATA_ACK: // data received, ACK returned
+		ongoing_transmission = 0;
+  90:	10 92 61 00 	sts	0x0061, r1
+		value = TWDR;
+  94:	83 b1       	in	r24, 0x03	; 3
+  96:	80 93 60 00 	sts	0x0060, r24
+		TWCR |= (1<<TWSTO);  // write stop bit
+  9a:	e6 e5       	ldi	r30, 0x56	; 86
+  9c:	f0 e0       	ldi	r31, 0x00	; 0
+  9e:	80 81       	ld	r24, Z
+  a0:	80 61       	ori	r24, 0x10	; 16
+  a2:	80 83       	st	Z, r24
+		TWCR &= ~(1<<TWSTA); // clear start bit
+  a4:	80 81       	ld	r24, Z
+  a6:	8f 7d       	andi	r24, 0xDF	; 223
+  a8:	80 83       	st	Z, r24
+		break;
+	}
+	TWCR |=   (1<<TWINT);  // hand over to TWI hardware
+  aa:	e6 e5       	ldi	r30, 0x56	; 86
+  ac:	f0 e0       	ldi	r31, 0x00	; 0
+  ae:	80 81       	ld	r24, Z
+  b0:	80 68       	ori	r24, 0x80	; 128
+  b2:	80 83       	st	Z, r24
+}
+  b4:	ff 91       	pop	r31
+  b6:	ef 91       	pop	r30
+  b8:	8f 91       	pop	r24
+  ba:	0f 90       	pop	r0
+  bc:	0f be       	out	0x3f, r0	; 63
+  be:	0f 90       	pop	r0
+  c0:	1f 90       	pop	r1
+  c2:	18 95       	reti
+
+000000c4 <main>:
+
+int main(void)
+{
+	// TWI setup
+	sei(); // enable global interrupt
+  c4:	78 94       	sei
+	// TWI-ENable , TWI Interrupt Enable
+	TWCR |= (1<<TWEA) | (1<<TWEN) | (1<<TWIE);
+  c6:	e6 e5       	ldi	r30, 0x56	; 86
+  c8:	f0 e0       	ldi	r31, 0x00	; 0
+  ca:	80 81       	ld	r24, Z
+  cc:	85 64       	ori	r24, 0x45	; 69
+  ce:	80 83       	st	Z, r24
+    TWBR = 32;
+  d0:	80 e2       	ldi	r24, 0x20	; 32
+  d2:	80 b9       	out	0x00, r24	; 0
+	
+	for (;;) // infinite main loop
+	{
+		// initiate new transmission if
+		//    no transmission is in progress
+		if (!ongoing_transmission) TWCR |= (1<<TWSTA);
+  d4:	90 91 61 00 	lds	r25, 0x0061
+  d8:	99 23       	and	r25, r25
+  da:	21 f4       	brne	.+8      	; 0xe4 <main+0x20>
+  dc:	80 81       	ld	r24, Z
+  de:	80 62       	ori	r24, 0x20	; 32
+  e0:	80 83       	st	Z, r24
+  e2:	fa cf       	rjmp	.-12     	; 0xd8 <main+0x14>
+  e4:	ff cf       	rjmp	.-2      	; 0xe4 <main+0x20>
+
+000000e6 <_exit>:
+  e6:	f8 94       	cli
+
+000000e8 <__stop_program>:
+  e8:	ff cf       	rjmp	.-2      	; 0xe8 <__stop_program>

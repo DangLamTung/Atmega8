@@ -1,0 +1,427 @@
+
+thirdStep.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001cc  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000034  00800060  000001cc  00000240  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .debug_aranges 000000b8  00000000  00000000  00000274  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  3 .debug_pubnames 00000202  00000000  00000000  0000032c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_info   000011eb  00000000  00000000  0000052e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_abbrev 00000252  00000000  00000000  00001719  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_line   00001105  00000000  00000000  0000196b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_frame  00000150  00000000  00000000  00002a70  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_str    000002d7  00000000  00000000  00002bc0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_loc    000003b3  00000000  00000000  00002e97  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000370  00000000  00000000  0000324a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+	init_I2C();
+	for(addr = 0x00; addr < 0x80; addr++){
+		if(TWI_start(addr,TW_WRITE)==0){
+			uart_transmit_string("found a device at: ");
+			uart_transmit_number(addr);
+            ADDRESS = addr;
+   0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
+   2:	2c c0       	rjmp	.+88     	; 0x5c <__bad_interrupt>
+   4:	2b c0       	rjmp	.+86     	; 0x5c <__bad_interrupt>
+   6:	2a c0       	rjmp	.+84     	; 0x5c <__bad_interrupt>
+   8:	29 c0       	rjmp	.+82     	; 0x5c <__bad_interrupt>
+   a:	28 c0       	rjmp	.+80     	; 0x5c <__bad_interrupt>
+   c:	27 c0       	rjmp	.+78     	; 0x5c <__bad_interrupt>
+   e:	26 c0       	rjmp	.+76     	; 0x5c <__bad_interrupt>
+  10:	25 c0       	rjmp	.+74     	; 0x5c <__bad_interrupt>
+  12:	24 c0       	rjmp	.+72     	; 0x5c <__bad_interrupt>
+  14:	23 c0       	rjmp	.+70     	; 0x5c <__bad_interrupt>
+  16:	22 c0       	rjmp	.+68     	; 0x5c <__bad_interrupt>
+  18:	21 c0       	rjmp	.+66     	; 0x5c <__bad_interrupt>
+  1a:	20 c0       	rjmp	.+64     	; 0x5c <__bad_interrupt>
+  1c:	1f c0       	rjmp	.+62     	; 0x5c <__bad_interrupt>
+  1e:	1e c0       	rjmp	.+60     	; 0x5c <__bad_interrupt>
+  20:	1d c0       	rjmp	.+58     	; 0x5c <__bad_interrupt>
+  22:	1c c0       	rjmp	.+56     	; 0x5c <__bad_interrupt>
+  24:	1b c0       	rjmp	.+54     	; 0x5c <__bad_interrupt>
+
+00000026 <__ctors_end>:
+  26:	11 24       	eor	r1, r1
+  28:	1f be       	out	0x3f, r1	; 63
+  2a:	cf e5       	ldi	r28, 0x5F	; 95
+  2c:	d4 e0       	ldi	r29, 0x04	; 4
+  2e:	de bf       	out	0x3e, r29	; 62
+  30:	cd bf       	out	0x3d, r28	; 61
+
+00000032 <__do_copy_data>:
+  32:	10 e0       	ldi	r17, 0x00	; 0
+  34:	a0 e6       	ldi	r26, 0x60	; 96
+  36:	b0 e0       	ldi	r27, 0x00	; 0
+  38:	ec ec       	ldi	r30, 0xCC	; 204
+  3a:	f1 e0       	ldi	r31, 0x01	; 1
+  3c:	02 c0       	rjmp	.+4      	; 0x42 <.do_copy_data_start>
+
+0000003e <.do_copy_data_loop>:
+  3e:	05 90       	lpm	r0, Z+
+  40:	0d 92       	st	X+, r0
+
+00000042 <.do_copy_data_start>:
+  42:	a4 39       	cpi	r26, 0x94	; 148
+  44:	b1 07       	cpc	r27, r17
+  46:	d9 f7       	brne	.-10     	; 0x3e <.do_copy_data_loop>
+
+00000048 <__do_clear_bss>:
+  48:	10 e0       	ldi	r17, 0x00	; 0
+  4a:	a4 e9       	ldi	r26, 0x94	; 148
+  4c:	b0 e0       	ldi	r27, 0x00	; 0
+  4e:	01 c0       	rjmp	.+2      	; 0x52 <.do_clear_bss_start>
+
+00000050 <.do_clear_bss_loop>:
+  50:	1d 92       	st	X+, r1
+
+00000052 <.do_clear_bss_start>:
+  52:	a4 39       	cpi	r26, 0x94	; 148
+  54:	b1 07       	cpc	r27, r17
+  56:	e1 f7       	brne	.-8      	; 0x50 <.do_clear_bss_loop>
+  58:	02 d0       	rcall	.+4      	; 0x5e <main>
+  5a:	b6 c0       	rjmp	.+364    	; 0x1c8 <_exit>
+
+0000005c <__bad_interrupt>:
+  5c:	d1 cf       	rjmp	.-94     	; 0x0 <__vectors>
+
+0000005e <main>:
+{
+	roll = atan2(Acc_y,Acc_z)*RAD2DEC;
+	pitch = atan(-Acc_x/sqrt(Acc_y*Acc_y+Acc_z*Acc_z))*RAD2DEC;
+}
+
+int main(void)
+  5e:	6f 92       	push	r6
+  60:	7f 92       	push	r7
+  62:	8f 92       	push	r8
+  64:	9f 92       	push	r9
+  66:	af 92       	push	r10
+  68:	bf 92       	push	r11
+  6a:	cf 92       	push	r12
+  6c:	df 92       	push	r13
+  6e:	ef 92       	push	r14
+  70:	ff 92       	push	r15
+  72:	0f 93       	push	r16
+  74:	1f 93       	push	r17
+  76:	df 93       	push	r29
+  78:	cf 93       	push	r28
+  7a:	00 d0       	rcall	.+0      	; 0x7c <main+0x1e>
+  7c:	cd b7       	in	r28, 0x3d	; 61
+  7e:	de b7       	in	r29, 0x3e	; 62
+
+#include <stdlib.h>
+#ifndef UART_H_
+#define UART_H_
+void uart_init(){
+	UBRRH = 0;
+  80:	10 bc       	out	0x20, r1	; 32
+	UBRRL = 12;
+  82:	8c e0       	ldi	r24, 0x0C	; 12
+  84:	89 b9       	out	0x09, r24	; 9
+	
+	UCSRB = (1<<RXEN)|(1<<TXEN);
+  86:	88 e1       	ldi	r24, 0x18	; 24
+  88:	8a b9       	out	0x0a, r24	; 10
+	UCSRA = (1<<UDRE)|(1<<U2X);
+  8a:	82 e2       	ldi	r24, 0x22	; 34
+  8c:	8b b9       	out	0x0b, r24	; 11
+	UCSRC =  (1 << UCSZ1) | (1 << UCSZ0);
+  8e:	86 e0       	ldi	r24, 0x06	; 6
+  90:	80 bd       	out	0x20, r24	; 32
+
+#include <util/twi.h>
+#ifndef I2C_H_
+#define I2C_H_
+uint8_t init_I2C(){
+	TWBR = 2;
+  92:	82 e0       	ldi	r24, 0x02	; 2
+  94:	80 b9       	out	0x00, r24	; 0
+}
+
+uint8_t TWI_start(uint8_t address, uint8_t TWI_type){
+	uint8_t status;
+	
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+  96:	80 b9       	out	0x00, r24	; 0
+  98:	00 e0       	ldi	r16, 0x00	; 0
+  9a:	10 e0       	ldi	r17, 0x00	; 0
+  9c:	5e 01       	movw	r10, r28
+  9e:	08 94       	sec
+  a0:	a1 1c       	adc	r10, r1
+  a2:	b1 1c       	adc	r11, r1
+  a4:	93 e0       	ldi	r25, 0x03	; 3
+  a6:	89 2e       	mov	r8, r25
+  a8:	91 2c       	mov	r9, r1
+  aa:	8c 0e       	add	r8, r28
+  ac:	9d 1e       	adc	r9, r29
+  ae:	84 ea       	ldi	r24, 0xA4	; 164
+  b0:	e8 2e       	mov	r14, r24
+}
+
+void uart_transmit(char data){
+	while(!(UCSRA&(1<<UDRE)));
+	UDR = data;
+  b2:	be e2       	ldi	r27, 0x2E	; 46
+  b4:	7b 2e       	mov	r7, r27
+	if((status != TW_START) & (status != TW_REP_START)){
+		return 1;
+	}
+	//get device
+	TWDR = (address<<1)|TWI_type;
+	TWCR = (1<<TWINT)|(1<<TWEN);
+  b6:	a4 e8       	ldi	r26, 0x84	; 132
+  b8:	6a 2e       	mov	r6, r26
+	__asm__ volatile (
+		"1: sbiw %0,1" "\n\t"
+		"brne 1b"
+		: "=w" (__count)
+		: "0" (__count)
+	);
+  ba:	f4 ec       	ldi	r31, 0xC4	; 196
+  bc:	cf 2e       	mov	r12, r31
+  be:	f9 e0       	ldi	r31, 0x09	; 9
+  c0:	df 2e       	mov	r13, r31
+
+#include <util/twi.h>
+#ifndef I2C_H_
+#define I2C_H_
+uint8_t init_I2C(){
+	TWBR = 2;
+  c2:	f0 2e       	mov	r15, r16
+}
+
+uint8_t TWI_start(uint8_t address, uint8_t TWI_type){
+	uint8_t status;
+	
+	TWCR = (1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
+  c4:	e6 be       	out	0x36, r14	; 54
+	while (!(TWCR & (1<<TWINT)));
+  c6:	06 b6       	in	r0, 0x36	; 54
+  c8:	07 fe       	sbrs	r0, 7
+  ca:	fd cf       	rjmp	.-6      	; 0xc6 <main+0x68>
+	
+	status = TWSR & 0xF8;
+  cc:	81 b1       	in	r24, 0x01	; 1
+  ce:	88 7f       	andi	r24, 0xF8	; 248
+	if((status != TW_START) & (status != TW_REP_START)){
+  d0:	88 30       	cpi	r24, 0x08	; 8
+  d2:	71 f0       	breq	.+28     	; 0xf0 <main+0x92>
+  d4:	80 31       	cpi	r24, 0x10	; 16
+  d6:	61 f0       	breq	.+24     	; 0xf0 <main+0x92>
+	UCSRA = (1<<UDRE)|(1<<U2X);
+	UCSRC =  (1 << UCSZ1) | (1 << UCSZ0);
+}
+
+void uart_transmit(char data){
+	while(!(UCSRA&(1<<UDRE)));
+  d8:	5d 9b       	sbis	0x0b, 5	; 11
+  da:	fe cf       	rjmp	.-4      	; 0xd8 <main+0x7a>
+	UDR = data;
+  dc:	7c b8       	out	0x0c, r7	; 12
+  de:	c6 01       	movw	r24, r12
+  e0:	01 97       	sbiw	r24, 0x01	; 1
+  e2:	f1 f7       	brne	.-4      	; 0xe0 <main+0x82>
+  e4:	0f 5f       	subi	r16, 0xFF	; 255
+  e6:	1f 4f       	sbci	r17, 0xFF	; 255
+}
+
+void scanI2C(){
+	uint8_t addr;
+	init_I2C();
+	for(addr = 0x00; addr < 0x80; addr++){
+  e8:	00 38       	cpi	r16, 0x80	; 128
+  ea:	11 05       	cpc	r17, r1
+  ec:	51 f7       	brne	.-44     	; 0xc2 <main+0x64>
+  ee:	ff cf       	rjmp	.-2      	; 0xee <main+0x90>
+		return 1;
+	}
+	//get device
+	TWDR = (address<<1)|TWI_type;
+  f0:	c8 01       	movw	r24, r16
+  f2:	88 0f       	add	r24, r24
+  f4:	99 1f       	adc	r25, r25
+  f6:	83 b9       	out	0x03, r24	; 3
+	TWCR = (1<<TWINT)|(1<<TWEN);
+  f8:	66 be       	out	0x36, r6	; 54
+	//wait
+	while (!(TWCR & (1<<TWINT)));
+  fa:	06 b6       	in	r0, 0x36	; 54
+  fc:	07 fe       	sbrs	r0, 7
+  fe:	fd cf       	rjmp	.-6      	; 0xfa <main+0x9c>
+	
+	status = TWSR & 0xF8;
+ 100:	81 b1       	in	r24, 0x01	; 1
+ 102:	88 7f       	andi	r24, 0xF8	; 248
+	if((status != TW_MR_SLA_ACK)&(status != TW_MT_SLA_ACK)){
+ 104:	80 34       	cpi	r24, 0x40	; 64
+ 106:	11 f0       	breq	.+4      	; 0x10c <main+0xae>
+ 108:	88 31       	cpi	r24, 0x18	; 24
+ 10a:	31 f7       	brne	.-52     	; 0xd8 <main+0x7a>
+}
+
+void uart_transmit_string(char* data)
+{
+	int i=0;
+	while (data[i]!=0)
+ 10c:	86 e6       	ldi	r24, 0x66	; 102
+ 10e:	e5 e7       	ldi	r30, 0x75	; 117
+ 110:	f0 e0       	ldi	r31, 0x00	; 0
+	UCSRA = (1<<UDRE)|(1<<U2X);
+	UCSRC =  (1 << UCSZ1) | (1 << UCSZ0);
+}
+
+void uart_transmit(char data){
+	while(!(UCSRA&(1<<UDRE)));
+ 112:	5d 9b       	sbis	0x0b, 5	; 11
+ 114:	fe cf       	rjmp	.-4      	; 0x112 <main+0xb4>
+	UDR = data;
+ 116:	8c b9       	out	0x0c, r24	; 12
+}
+
+void uart_transmit_string(char* data)
+{
+	int i=0;
+	while (data[i]!=0)
+ 118:	81 81       	ldd	r24, Z+1	; 0x01
+ 11a:	31 96       	adiw	r30, 0x01	; 1
+ 11c:	88 23       	and	r24, r24
+ 11e:	c9 f7       	brne	.-14     	; 0x112 <main+0xb4>
+	}
+}
+
+void uart_transmit_number(uint8_t num){
+	char temp[2];
+	itoa(num,temp,16);
+ 120:	c8 01       	movw	r24, r16
+ 122:	b5 01       	movw	r22, r10
+ 124:	40 e1       	ldi	r20, 0x10	; 16
+ 126:	50 e0       	ldi	r21, 0x00	; 0
+ 128:	0c d0       	rcall	.+24     	; 0x142 <itoa>
+ 12a:	f5 01       	movw	r30, r10
+	for(int i = 0 ;i < 2 ; i++){
+		uart_transmit(temp[i]);
+ 12c:	80 81       	ld	r24, Z
+	UCSRA = (1<<UDRE)|(1<<U2X);
+	UCSRC =  (1 << UCSZ1) | (1 << UCSZ0);
+}
+
+void uart_transmit(char data){
+	while(!(UCSRA&(1<<UDRE)));
+ 12e:	5d 9b       	sbis	0x0b, 5	; 11
+ 130:	fe cf       	rjmp	.-4      	; 0x12e <main+0xd0>
+	UDR = data;
+ 132:	8c b9       	out	0x0c, r24	; 12
+ 134:	31 96       	adiw	r30, 0x01	; 1
+}
+
+void uart_transmit_number(uint8_t num){
+	char temp[2];
+	itoa(num,temp,16);
+	for(int i = 0 ;i < 2 ; i++){
+ 136:	e8 15       	cp	r30, r8
+ 138:	f9 05       	cpc	r31, r9
+ 13a:	c1 f7       	brne	.-16     	; 0x12c <main+0xce>
+		if(TWI_start(addr,TW_WRITE)==0){
+			uart_transmit_string("found a device at: ");
+			uart_transmit_number(addr);
+            ADDRESS = addr;
+ 13c:	f0 92 92 00 	sts	0x0092, r15
+ 140:	ce cf       	rjmp	.-100    	; 0xde <main+0x80>
+
+00000142 <itoa>:
+ 142:	fb 01       	movw	r30, r22
+ 144:	9f 01       	movw	r18, r30
+ 146:	e8 94       	clt
+ 148:	42 30       	cpi	r20, 0x02	; 2
+ 14a:	bc f0       	brlt	.+46     	; 0x17a <itoa+0x38>
+ 14c:	45 32       	cpi	r20, 0x25	; 37
+ 14e:	ac f4       	brge	.+42     	; 0x17a <itoa+0x38>
+ 150:	4a 30       	cpi	r20, 0x0A	; 10
+ 152:	29 f4       	brne	.+10     	; 0x15e <itoa+0x1c>
+ 154:	97 fb       	bst	r25, 7
+ 156:	1e f4       	brtc	.+6      	; 0x15e <itoa+0x1c>
+ 158:	90 95       	com	r25
+ 15a:	81 95       	neg	r24
+ 15c:	9f 4f       	sbci	r25, 0xFF	; 255
+ 15e:	64 2f       	mov	r22, r20
+ 160:	77 27       	eor	r23, r23
+ 162:	1e d0       	rcall	.+60     	; 0x1a0 <__udivmodhi4>
+ 164:	80 5d       	subi	r24, 0xD0	; 208
+ 166:	8a 33       	cpi	r24, 0x3A	; 58
+ 168:	0c f0       	brlt	.+2      	; 0x16c <itoa+0x2a>
+ 16a:	89 5d       	subi	r24, 0xD9	; 217
+ 16c:	81 93       	st	Z+, r24
+ 16e:	cb 01       	movw	r24, r22
+ 170:	00 97       	sbiw	r24, 0x00	; 0
+ 172:	a9 f7       	brne	.-22     	; 0x15e <itoa+0x1c>
+ 174:	16 f4       	brtc	.+4      	; 0x17a <itoa+0x38>
+ 176:	5d e2       	ldi	r21, 0x2D	; 45
+ 178:	51 93       	st	Z+, r21
+ 17a:	10 82       	st	Z, r1
+ 17c:	c9 01       	movw	r24, r18
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <strrev>
+
+00000180 <strrev>:
+ 180:	dc 01       	movw	r26, r24
+ 182:	fc 01       	movw	r30, r24
+ 184:	67 2f       	mov	r22, r23
+ 186:	71 91       	ld	r23, Z+
+ 188:	77 23       	and	r23, r23
+ 18a:	e1 f7       	brne	.-8      	; 0x184 <strrev+0x4>
+ 18c:	32 97       	sbiw	r30, 0x02	; 2
+ 18e:	04 c0       	rjmp	.+8      	; 0x198 <strrev+0x18>
+ 190:	7c 91       	ld	r23, X
+ 192:	6d 93       	st	X+, r22
+ 194:	70 83       	st	Z, r23
+ 196:	62 91       	ld	r22, -Z
+ 198:	ae 17       	cp	r26, r30
+ 19a:	bf 07       	cpc	r27, r31
+ 19c:	c8 f3       	brcs	.-14     	; 0x190 <strrev+0x10>
+ 19e:	08 95       	ret
+
+000001a0 <__udivmodhi4>:
+ 1a0:	aa 1b       	sub	r26, r26
+ 1a2:	bb 1b       	sub	r27, r27
+ 1a4:	51 e1       	ldi	r21, 0x11	; 17
+ 1a6:	07 c0       	rjmp	.+14     	; 0x1b6 <__udivmodhi4_ep>
+
+000001a8 <__udivmodhi4_loop>:
+ 1a8:	aa 1f       	adc	r26, r26
+ 1aa:	bb 1f       	adc	r27, r27
+ 1ac:	a6 17       	cp	r26, r22
+ 1ae:	b7 07       	cpc	r27, r23
+ 1b0:	10 f0       	brcs	.+4      	; 0x1b6 <__udivmodhi4_ep>
+ 1b2:	a6 1b       	sub	r26, r22
+ 1b4:	b7 0b       	sbc	r27, r23
+
+000001b6 <__udivmodhi4_ep>:
+ 1b6:	88 1f       	adc	r24, r24
+ 1b8:	99 1f       	adc	r25, r25
+ 1ba:	5a 95       	dec	r21
+ 1bc:	a9 f7       	brne	.-22     	; 0x1a8 <__udivmodhi4_loop>
+ 1be:	80 95       	com	r24
+ 1c0:	90 95       	com	r25
+ 1c2:	bc 01       	movw	r22, r24
+ 1c4:	cd 01       	movw	r24, r26
+ 1c6:	08 95       	ret
+
+000001c8 <_exit>:
+ 1c8:	f8 94       	cli
+
+000001ca <__stop_program>:
+ 1ca:	ff cf       	rjmp	.-2      	; 0x1ca <__stop_program>
